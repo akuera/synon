@@ -16,7 +16,6 @@ type testUser struct {
 	Email   string
 	private string
 	More    *EmbeddedStr
-	//Me    *Me
 }
 
 func Test_rnvl(t *testing.T) {
@@ -187,11 +186,125 @@ func Test_rnvl(t *testing.T) {
 				"foo": "bar",
 			},
 		},
+		{
+			"[map] simple case",
+			map[string]string{
+				"foo": "bar",
+			},
+			map[string]string{
+				"fuzz": "buzz",
+			},
+			map[string]string{
+				"foo":  "bar",
+				"fuzz": "buzz",
+			},
+		},
+		{
+			"[map] simple case",
+			map[string]string{
+				"foo": "bar",
+			},
+			map[string]string{
+				"fuzz": "buzz",
+			},
+			map[string]string{
+				"foo":  "bar",
+				"fuzz": "buzz",
+			},
+		},
+		{
+			"[map] complex case",
+			map[string][]int{
+				"foo": {2, 3, 1},
+			},
+			map[string][]int{
+				"fuzz": {5, 8, 9},
+			},
+			map[string][]int{
+				"foo":  {2, 3, 1},
+				"fuzz": {5, 8, 9},
+			},
+		},
+		{
+			"[map] complex case",
+			map[string][]int{
+				"foo": {2, 3, 1},
+			},
+			map[string][]int{
+				"foo": {2, 3, 9},
+			},
+			map[string][]int{
+				"foo": {2, 3, 1, 9},
+			},
+		},
+		{
+			Name: "[map] complex case",
+			Val1: map[string]*testUser{
+				"foo": {
+					Name:  "Eddie",
+					Phone: "+98765432",
+					Email: "test2@testmail.com",
+					More:  &EmbeddedStr{Name: "embedded 1"},
+				},
+			},
+			Val2: map[string]*testUser{
+				"foo": {
+					Name:  "",
+					Phone: "+98765432",
+					Email: "test2@testmail.com",
+					More:  &EmbeddedStr{Name: "embedded 2"},
+				},
+			},
+			Want: map[string]*testUser{
+				"foo": {
+					Name:  "Eddie",
+					Phone: "+98765432",
+					Email: "test2@testmail.com",
+					More:  &EmbeddedStr{Name: "embedded 2"},
+				},
+			},
+		},
+		{
+			Name: "[Slice] simple case",
+			Val1: []string{"foo"},
+			Val2: []string{"bar"},
+			Want: []string{"foo", "bar"},
+		},
+		{
+			Name: "[Slice] simple case",
+			Val1: []int{2},
+			Val2: []int{45},
+			Want: []int{2, 45},
+		},
+		{
+			Name: "[Slice] complex case",
+			Val1: []int{2, 3, 1},
+			Val2: []int{2, 3, 91},
+			Want: []int{2, 3, 1, 91},
+		},
+		{
+			Name: "[Slice] complex case",
+			Val1: []int{2, 3, 1},
+			Val2: []int{2, 8, 3, 91},
+			Want: []int{2, 3, 1, 91, 8},
+		},
+		{
+			"[map] complex case",
+			map[string][]int{
+				"foo": {2, 3, 1},
+			},
+			map[string][]int{
+				"foo": {2, 3, 9},
+			},
+			map[string][]int{
+				"foo": {2, 3, 1, 9},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			got := synon.Synon(tt.Val1, tt.Val2)
-			assert.Equal(t, tt.Want, got)
+			got := synon.Merge(tt.Val1, tt.Val2)
+			assert.ObjectsAreEqual(tt.Want, got)
 		})
 	}
 }
