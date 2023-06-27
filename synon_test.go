@@ -18,7 +18,7 @@ type testUser struct {
 	More    *EmbeddedStr
 }
 
-func Test_rnvl(t *testing.T) {
+func Test_Merge(t *testing.T) {
 	tests := []struct {
 		Name string
 		Val1 interface{}

@@ -4,18 +4,18 @@ Synon is a lightweight Go library that simplifies updating values within data st
 
 ## Installation
 ```shell
-go get github.com/your-username/synon
+go get github.com/akuera/synon
 ```
 
 ## Usage
 
-Synon exposes a single function, `Merge`, that takes two parameters: the left parameter (destination) and the right parameter (source). The function updates the values in the left parameter according to the following conditions:
+Synon exposes a single function, `Merge`, that takes two parameters: the left parameter (destination) and the right parameter (source). The function merges the values from the right parameter into the left parameter according to the following conditions:
 
 1. If a value in the left parameter is empty or nil, and the corresponding value in the right parameter is non-empty or non-nil, the value in the left parameter will be replaced with the value from the right parameter.
 
 2. If the value in the left parameter is different from the corresponding value in the right parameter, the value in the left parameter will be updated with the value from the right parameter.
 
-Here are examples of how to use Synon:
+The `Merge` function returns the updated destination object as the result.
 
 ```go
 package main
@@ -50,10 +50,10 @@ func main() {
 	}
 
 	// Merge values from the source into the destination
-	synon.Merge(&destination, source)
+	result := synon.Merge(destination, source)
 
 	// Print the updated destination struct
-	fmt.Println(destination)
+	fmt.Println(result)
 }
 
 ```
