@@ -22,7 +22,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/your-username/synon"
+	"github.com/akuera/synon"
 )
 
 type Person struct {
