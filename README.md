@@ -53,7 +53,7 @@ func main() {
 	result := synon.Merge(destination, source)
 
 	// Print the updated destination struct
-	// fmt.Println(result)
+	fmt.Println(result)
 
 	// result output
 	// Person{
