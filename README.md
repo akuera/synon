@@ -53,7 +53,15 @@ func main() {
 	result := synon.Merge(destination, source)
 
 	// Print the updated destination struct
-	fmt.Println(result)
+	// fmt.Println(result)
+
+	// result output
+	// Person{
+	// 	Name:     "Jane Smith",
+	// 	Age:      30,
+	// 	Email:    "jane@example.com",
+	// 	Location: "San Francisco",
+	// }
 }
 
 ```
